@@ -1,0 +1,10 @@
+name: "timle"
+description: "timle"
+
+url: "time.com"
+
+paginate: 10
+
+markdown: rdiscount
+permalink: pretty
+pygments: true

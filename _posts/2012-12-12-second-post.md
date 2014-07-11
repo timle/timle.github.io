@@ -1,0 +1,11 @@
+---
+
+---
+
+second post
+
+{% highlight ruby linenos %}
+def foo
+  puts 'foo'
+end
+{% endhighlight %}
