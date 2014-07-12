@@ -20,6 +20,7 @@ h6, .h6 {
 }
 
 
+
 /*
  * Override Bootstrap's default container.
  */
@@ -49,16 +50,20 @@ h6, .h6 {
   font-weight: 500;
   color: #cdddeb;
 }
-.blog-nav-item:hover,
-.blog-nav-item:focus {
-  color: #fff;
+
+
+
+
+.blog-title h1:hover,
+.blog-title h1:focus {
   text-decoration: none;
 }
 
-/* Active state gets a caret at the bottom */
-.blog-nav .active {
-  color: #fff;
+
+.blog-nav{
+  margin-bottom: -28px;
 }
+/* Active state gets a caret at the bottom
 .blog-nav .active:after {
   position: absolute;
   bottom: 0;
@@ -72,7 +77,7 @@ h6, .h6 {
   border-bottom: 5px solid;
   border-left: 5px solid transparent;
 }
-
+ */
 
 /*
  * Blog name and description
@@ -87,10 +92,30 @@ h6, .h6 {
   margin-bottom: 0;
   font-size: 60px;
   font-weight: normal;
+  color: rgb(239, 255, 247);
+  text-decoration: none;
+  font-weight: bold;
 }
 .blog-description {
   font-size: 20px;
   color: #999;
+}
+
+.col1a {
+  color: #EAFFFE;
+}
+
+.col1b{
+  color: rgb(253, 255, 254);
+  padding-right: 10px;
+}
+
+.col2a {
+  color: #DAFFFD;
+}
+
+.col2b{
+  color: rgb(239, 255, 247);
 }
 
 
@@ -112,6 +137,8 @@ h6, .h6 {
   padding: 15px;
   background-color: #f5f5f5;
   border-radius: 4px;
+  margin-top: .5em;
+  margin-left: 30px;
 }
 .sidebar-module-inset p:last-child,
 .sidebar-module-inset ul:last-child,
@@ -156,12 +183,37 @@ h6, .h6 {
  */
 
 .blog-footer {
-  padding: 40px 0;
+  padding: 15px 0;
   color: #999;
-  text-align: center;
-  background-color: #f9f9f9;
+  text-align: left;
   border-top: 1px solid #e5e5e5;
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
+}
+
+
+a, a:hover, h1, h1:hover
+{
+  text-decoration:none;
+  color:pink;
+}
+
+.blog-description
+{
+	padding-left:10px;
+	color: black;
+	font-size: 21px;
+}
+
+.blog-description2
+{
+	padding-left:20px;
+	color: grey;
+	padding-top: 1px;
+		font-size: 14px;
+}
+
+.tl{
+	font-size:18px;
 }

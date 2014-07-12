@@ -913,11 +913,13 @@ a {
   color: #428bca;
   text-decoration: none;
 }
+/*
 a:hover,
 a:focus {
   color: #2a6496;
   text-decoration: underline;
 }
+*/
 a:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
@@ -1403,12 +1405,14 @@ pre code {
 }
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    width: 750px;
+	margin-left: 110px;
   }
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 750px;
+	margin-left: 110px;
   }
 }
 .container-fluid {
