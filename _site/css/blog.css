@@ -3,21 +3,22 @@
  */
 
 body {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: 'Lato', sans-serif;
   color: #555;
 }
 
-h1, .h1,
+h1, .h1, 
 h2, .h2,
 h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
   margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: normal;
   color: #333;
 }
+
 
 
 
@@ -88,17 +89,19 @@ h6, .h6 {
   padding-bottom: 20px;
 }
 .blog-title {
+font-family: 'Lato', sans-serif;
   margin-top: 30px;
   margin-bottom: 0;
   font-size: 60px;
   font-weight: normal;
   color: rgb(239, 255, 247);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
 }
 .blog-description {
   font-size: 20px;
   color: #999;
+  font-family: 'Lato', sans-serif;
 }
 
 .col1a {
@@ -111,10 +114,12 @@ h6, .h6 {
 }
 
 .col2a {
-  color: #DAFFFD;
+	font-family: 'Lato', sans-serif;
+  color: #BFDEFA;
 }
 
 .col2b{
+	font-family: 'Lato', sans-serif;
   color: rgb(239, 255, 247);
 }
 
@@ -193,7 +198,7 @@ h6, .h6 {
 }
 
 
-a, a:hover, h1, h1:hover
+a, a:hover
 {
   text-decoration:none;
   color:pink;
