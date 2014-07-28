@@ -4,11 +4,9 @@ layout: default
 
 Obligatory first post. Awkward...
 
+I love data exploration and visualization. This blog is an outlet for when inspiration hits. 
 
-My work revolves around understanding the mechanisms behind the formation, and later plasticity, of memory. I love data exploration and visualization. I hope to use this blog as an outlet for when inspiration hits. 
+I really like the idea of being able to write posts in markdown. So For the blog I have opted to use [Jekyll](jekyllrb.com) as backend + [github.io](https://pages.github.com/) for hosting. For layout [Bootstrap](http://getbootstrap.com/) was an easy choice, having worked with it in the past.
 
-I've opted to use Jekyll + github.io for hosting + twitter bootstrap.
-
-Thanks to [yeswejekyll](http://yeswejekyll.com) for the initial Jekyll setup. 
-
+Thanks to [yeswejekyll](http://yeswejekyll.com) for the initial Jekyll and Bootstrap setup. 
 
