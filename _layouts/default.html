@@ -37,7 +37,7 @@
 
 			<div class="blog-post">
 			<h2 class="blog-post-title">{{ page.title }}</h2>
-            <p class="blog-post-meta">{{ page.date }}</p>
+            <p class="blog-post-meta">{{ page.date | date: "%-d %B %Y" }}</p>
 			
       {{ content }}
 	  </div><!-- /.blog-post -->
@@ -45,7 +45,7 @@
 
         <div class="col-sm-12 blog-sidebar">
 
-          <div class="sidebar-module col-sm-7">
+          <div class="sidebar-module col-sm-7 RePos">
             <h4>Recent Posts</h4>
             <ol class="list-unstyled">
 

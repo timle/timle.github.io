@@ -65,19 +65,35 @@
         <div class="col-sm-12 blog-main">
 
 			<div class="blog-post">
-			<h2 class="blog-post-title">mian page title!</h2>
+			<h2 class="blog-post-title"></h2>
             <p class="blog-post-meta"></p>
 			
-      <p>this is the main index contant
-content
-cantant</p>
+      <p><img src="blank.jpg" name="canvas" style="max-width:100%"/></p>
+
+<script>
+    var imagesArray = ["b3.jpg","b6.jpg","b8.jpg","b9.jpg","b10.jpg","b11.jpg","b13.jpg"];
+
+
+    function displayImage(){
+
+
+        var num = Math.floor(Math.random() * (imagesArray.length+1));
+        document.canvas.src = '/images/banner/' + imagesArray[num];
+
+
+    }
+    
+    displayImage();
+    
+</script>
+
 
 	  </div><!-- /.blog-post -->
         </div><!-- /.blog-main -->
 
         <div class="col-sm-12 blog-sidebar">
 
-          <div class="sidebar-module col-sm-7">
+          <div class="sidebar-module col-sm-7 RePos">
             <h4>Recent Posts</h4>
             <ol class="list-unstyled">
 
