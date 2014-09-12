@@ -43,13 +43,8 @@ ns17_plotter.m
 ```
 
 
-Two examples (shown below) can be run via:
+Two examples (above) can be run via:
 ```
 ns17_examples.m
 ```
 
-
-The first examples uses the following function to generate data.
-```
-mkInvExpData_helper.m
-```
