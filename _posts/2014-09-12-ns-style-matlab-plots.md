@@ -39,23 +39,17 @@ It's still a fairly crude implementation. I'd eventually like to set up automati
 
 The main function is:
 ```
-
-
 ns17_plotter.m
 ```
 
 
 Two examples (shown below) can be run via:
 ```
-
-
 ns17_examples.m
 ```
 
 
 The first examples uses the following function to generate data.
 ```
-
-
 mkInvExpData_helper.m
 ```
