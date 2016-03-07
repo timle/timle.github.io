@@ -63,8 +63,8 @@ h6, .h6 {
 
 
 
-.blog-title:hover,
-.blog-title:focus {
+.blog-title a:hover,
+.blog-title a:focus {
   text-decoration: none;
 }
 
