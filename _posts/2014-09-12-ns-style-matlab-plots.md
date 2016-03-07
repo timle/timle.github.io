@@ -2,7 +2,7 @@
 layout: default
 ---
 
-###Nate Silver Matlab Style Plots
+### Nate Silver Matlab Style Plots
 
 
 Inspired by [this post (dataorigami.net)](https://www.dataorigami.net/blogs/fivethirtyeight-mpl)
