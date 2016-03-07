@@ -930,7 +930,6 @@ figure {
 }
 img {
   vertical-align: middle;
-  max-width:100%;
 }
 .img-responsive,
 .thumbnail > img,
@@ -1407,13 +1406,11 @@ pre code {
 @media (min-width: 992px) {
   .container {
     width: 750px;
-	margin-left: 110px;
   }
 }
 @media (min-width: 1200px) {
   .container {
     width: 750px;
-	margin-left: 110px;
   }
 }
 .container-fluid {

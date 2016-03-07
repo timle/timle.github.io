@@ -97,14 +97,14 @@ h6, .h6 {
   padding-bottom: 20px;
 }
 .blog-title {
-font-family: 'Lato', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin-top: 30px;
   margin-bottom: 0;
   font-size: 32px;
   font-weight: normal;
   color: rgb(239, 255, 247);
   text-decoration: none;
-  font-weight: 700;
+  text-align: center;
 }
 .blog-description {
   font-size: 20px;
