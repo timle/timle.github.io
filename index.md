@@ -11,7 +11,7 @@ layout: default
 
 
 	function displayImage(){
-	    var num = Math.floor(Math.random() * (imagesArray.length+1));
+	    var num = Math.floor(Math.random() * (imagesArray.length+1))-1;
 	    document.canvas.src = '/images/banner/' + imagesArray[num];
 	}
 	
