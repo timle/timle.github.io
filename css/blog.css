@@ -19,7 +19,10 @@ h6, .h6 {
   color: #333;
 }
 
-
+a, a:hover
+{
+  text-decoration:none;
+}
 
 
 /*
@@ -219,11 +222,7 @@ h6, .h6 {
 }
 
 
-a, a:hover
-{
-  text-decoration:none;
-  color:pink;
-}
+
 
 .blog-description
 {
