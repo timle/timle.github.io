@@ -47,7 +47,7 @@ img {
 
 .RePos {text-align: center;}
 
-.RePos a {padding-bottom: 5px;}
+.RePos li {padding-bottom: 5px;}
 
 @media (min-width: 768px) {
   .RePos {
