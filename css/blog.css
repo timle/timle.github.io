@@ -47,6 +47,8 @@ img {
 
 .RePos {text-align: center;}
 
+a .RePos {margin-bottom: 5px;}
+
 @media (min-width: 768px) {
   .RePos {
     text-align: left;

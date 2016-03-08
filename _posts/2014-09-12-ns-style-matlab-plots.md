@@ -5,10 +5,7 @@ layout: default
 ### Nate Silver Matlab Style Plots
 
 
-Inspired by [this post (dataorigami.net)](https://www.dataorigami.net/blogs/fivethirtyeight-mpl)
-
-
-I thought I would try and replicate the fivethirtyeight style within MATLAB. My goal was to require no touch-ups in post (i.e. Illustrator). What you see here is the direct output from MATLAB.  
+Inspired by [this post (dataorigami.net)](https://www.dataorigami.net/blogs/fivethirtyeight-mpl) I thought I would try and replicate the fivethirtyeight style within MATLAB. My goal was to require no touch-ups in post (i.e. Illustrator). What you see here is the direct output from MATLAB.  
 
 By far, the largest complication was that MATLAB does not offer an easy way to remove the axis lines while retaining the tick labels and a grid. So the bulk of the code deals with drawing those elements manually.  
 
