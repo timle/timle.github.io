@@ -24,6 +24,14 @@ a, a:hover
   text-decoration:none;
 }
 
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+
+img {
+  max-width:80%;
+}
 
 /*
  * Override Bootstrap's default container.
@@ -32,6 +40,8 @@ a, a:hover
 @media (min-width: 1200px) {
   .container {
     width: 970px;
+
+  img {max-width:80%;
   }
 }
 
@@ -40,6 +50,8 @@ a, a:hover
 @media (min-width: 768px) {
   .RePos {
     text-align: left;
+  }
+    img {max-width:80%;
   }
 }
 
