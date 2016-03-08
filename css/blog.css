@@ -47,7 +47,8 @@ img {
 
 .RePos {text-align: center;}
 
-.RePos li {padding-bottom: 5px;}
+.RePos li {padding-bottom: 10px;}
+.RePos a:hover {text-decoration: underline;}
 
 @media (min-width: 768px) {
   .RePos {
