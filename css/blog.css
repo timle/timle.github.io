@@ -3,7 +3,6 @@
  */
 
 body {
-  font-family: 'Open Sans', sans-serif;
   color: #555;
 }
 
@@ -40,6 +39,7 @@ img {
 @media (min-width: 1200px) {
   .container {
     width: 970px;
+  }
 
   img {max-width:80%;
   }
