@@ -15,6 +15,8 @@ layout: default
 	    document.canvas.src = '/images/banner/' + imagesArray[num];
 	}
 	
+	console.log(num)
+	
 	displayImage();
 	
 </script>
