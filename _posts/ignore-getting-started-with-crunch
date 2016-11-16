@@ -1,0 +1,152 @@
+
+
+
+
+
+
+
+# notes
+# Data Model and Operators
+	PCollection
+		PCollection<T> represents a distributed, immutable collection of elements of type T. For example, we represent a text file as a PCollection<String> object. PCollection<T> provides a method, parallelDo, that applies a DoFn to each element in the PCollection<T> in parallel, and returns a new PCollection<U> as its result.	  	
+	PTable
+		A PTable<K, V> is a sub-interface of PCollection<Pair<K, V>> that represents a distributed, unordered multimap of its key type K to its value type V
+		http://crunch.apache.org/apidocs/0.10.0/org/apache/crunch/GroupingOptions.html
+	PGroupedTable
+		The result of a groupByKey operation is a PGroupedTable<K, V> object, which is a distributed, sorted map of keys of type K to an Iterable that may be iterated over exactly once
+
+Every Crunch data pipeline is coordinated by an instance of the Pipeline interface
+	defines methods for reading data into a pipeline via Source instances and writing data out from a pipeline to Target instances. 
+
+There are currently three implementations of the Pipeline interface that are available for developers to use:
+	MRPipeline: Executes the pipeline as a series of MapReduce jobs.
+	MemPipeline: Executes the pipeline in-memory on the client.
+	SparkPipeline: Executes the pipeline by converting it to a series of Spark pipelines.
+
+Processing with DoFns
+	DoFns represent the logical computations of your Crunch pipelines
+
+	DoFns vs. Mapper and Reducer Classes	
+		all of the member variables of a DoFn must be either serializable or marked as transient
+		If your DoFn needs to work with a class that does not implement Serializable and cannot be modified (for example, because it is defined in a third-party library), you should use the transient keyword
+		One place where the serializable DoFns can trip up new Crunch developers is when they specify in-line DoFns inside of methods of non-serializable outer classes.
+
+	Common DoFn Patterns
+		Crunch APIs contain a number of useful subclasses of DoFn that handle common data processing scenarios and are easier to write and test. 
+		The top-level org.apache.crunch package contains three of the most important specializations
+			 FilterFn class
+			 	which defines a single abstract method, boolean accept(T input). The FilterFn can be applied to a PCollection<T> by calling the filter(FilterFn<T> fn) method, and will return a new PCollection<T> that only contains the elements of the input PCollection for which the accept method returned true
+		 	MapFn class
+		 		- defines a single abstract method, T map(S input). For simple transform tasks in which every input record will have exactly one output, it's easy to test a MapFn by verifying that a given input returns a given output.
+	 			- MapFns are also used in specialized methods on the PCollection and PTable interfaces. PCollection<V> defines the method PTable<K,V> by(MapFn<V, K> mapFn, PType<K> keyType) that can be used to create a PTable from a PCollection by 	writing a function that extracts the key (of type K) from the value (of type V) contained in the PCollection. The by function only requires that the PType of the key be given and constructs a PTableType<K, V> from the given key type and the PCollection's existing value type. PTable<K, V>, in turn, has methods PTable<K1, V> mapKeys(MapFn<K, K1> mapFn) and PTable<K, V2> mapValues(MapFn<V, V2>) that handle the common case of converting just one of the paired values in a PTable instance from one type to another while leaving the other type the same.
+	 		CombineFn class
+
+Serializing Data with PTypes
+	Every PCollection<T> has an associated PType<T> that encapsulates the information on how to serialize and deserialize the contents of that PCollection.
+	When you're creating a new PCollection by using parallelDo against an existing PCollection, the return type of your DoFn must match the given PType:
+	Core PTypes
+		strings, longs, ints, floats, doubles, booleans, and bytes
+		complex PTypes
+			Tuples of other PTypes
+			Collections of other PTypes
+			tableOf to construct a PTableType<K, V>, the PType used to distinguish a PTable<K, V> from a PCollection<Pair<K, V>>
+				If you find yourself in a situation where you have a PCollection<Pair<K, V>> and you need a PTable<K, V>, the PTables library class has methods that will do the conversion for you.
+
+Data Processing Patterns in Crunch¶
+	http://crunch.apache.org/apidocs/0.10.0/org/apache/crunch/lib/package-summary.html
+	groupByKey
+		groupByKey(): A simple shuffle operation, where the number of partitions of the data will be determined by the Crunch planner based on the estimated size of the input data,
+		groupByKey(int numPartitions): A shuffle operation where the number of partitions is explicitly provided by the developer based on some knowledge of the data and the operation performed.
+		groupByKey(GroupingOptions options): Complex shuffle operations that require custom partitions and comparators.
+			The GroupingOptions class allows developers to exercise precise control over how data is partitioned, sorted, and grouped by the underlying execution engine
+			GroupingOptions class is immutable; to create a new one, take advantage of the GroupingOptions.Builder
+		combineValues
+			the Aggregator interface
+			e.g.
+				// Sum the values of the doubles for each key.
+				PTable<String, Double> sums = data.groupByKey().combineValues(Aggregators.SUM_DOUBLES());
+				// Find the ten largest values for each key.
+				PTable<String, Double> maxes = data.groupByKey().combineValues(Aggregators.MAX_DOUBLES(10));
+
+		Simple Aggregations	
+			The implementations of these methods, however, are in the Aggregate library class
+			http://crunch.apache.org/apidocs/0.10.0/org/apache/crunch/lib/Aggregate.html
+		Joining Data
+			Crunch joins are usually performed using an explicit implementation of the JoinStrategy interface
+				PTable<K, V1> one = ...;
+				PTable<K, V2> two = ...;
+				JoinStrategy<K, V1, V2> strategy = ...;
+				PTable<K, Pair<V1, V2>> joined = strategy.join(one, two, JoinType);
+			The JoinType enum determines which kind of join is applied: inner, outer, left, right, or full. 
+				http://crunch.apache.org/apidocs/0.10.0/org/apache/crunch/lib/join/JoinType.html
+			In general, the smaller of the two inputs should be the left-most argument to the join method.
+			Note that the values of the PTables you join should be non-null.
+			Reduce-side Joins
+				simplest and most robust kind of joins in Hadoop
+			Map-side Joins
+				Map-side joins require that the smaller of the two input tables is loaded into memory on the tasks on the cluster, so there is a requirement that at least one of the tables be relatively small 
+			Sharded Joins
+				allows developers to shard each key to multiple reducers, which prevents a few reducers from getting overloaded with the values from the skewed keys in exchange for sending more data over the wire. For problems with significant skew issues, the ShardedJoinStrategy can significantly improve performance
+			Bloom Filter Joins
+				useful in situations in which the left-hand side table is too large to fit into memory on the tasks of the job, but is still significantly smaller than the right-hand side table, and we know that the vast majority of the keys in the right-hand side table will not match the keys in the left-hand side of the table
+			Cogroups
+				For arbitrary complex join logic, we can always fall back to the Cogroup API, which takes in an arbitrary number of PTable instances that all have the same key type and combines them together into a single PTable whose values are made up of Collections of the values from each of the input PTables.
+				 section on cogroups in the Apache Pig book: http://chimera.labs.oreilly.com/books/1234000001811/ch06.html
+
+		Sorting
+			The Sort API methods contain utility functions for sorting the contents of PCollections and PTables whose contents implement the Comparable interface
+			Crunch will prefer to handle sorts with a single reducer.
+			specify which columns of the Tuple should be used for sorting the contents, and in which order, using the ColumnOrder class
+				http://crunch.apache.org/apidocs/0.10.0/org/apache/crunch/lib/Sort.ColumnOrder.html
+		Secondary Sorts
+			secondary sorts, where we want to group a set of records by one key and sort the records within each group by a second key. The SecondarySort API provides a set of sortAndApply methods that can be used on input PTables of the form PTable<K, Pair<K2, V>>, where K is the primary grouping key and K2 is the secondary grouping key
+			The sortAndApply method will perform the grouping and sorting and will then apply a given DoFn to process the grouped and sorted values.
+		Other Operations¶
+			Crunch's Cartesian API provides methods for a reduce-side full cross product between two PCollections (or PTables.) 
+			Note that this is a pretty expensive operation, and you should go out of your way to avoid these kinds of processing steps in your pipelines.
+		Coalescing
+			The Shard API provides a single method, shard, that allows you to coalesce a given PCollection into a fixed number of partitions:
+		Distinct
+			Crunch's Distinct API has a method, distinct, that returns one copy of each unique element in a given PCollection
+		Sampling
+			- The Sample API provides methods for two sorts of PCollection sampling: random and reservoir.
+			Random sampling is where you include each record in the same with a fixed probability, and is probably what you're used to when you think of sampling from a collection
+			- In reservoir sampling, we use an algorithm to select an exact number of elements from the input data in a way that each input has an equal probability of being selected- even if we don't know how many elements are in the input collection
+				https://en.wikipedia.org/wiki/Reservoir_sampling
+		Set Operations
+			The Set API methods complement Crunch's built-in union methods and provide support for finding the intersection, the difference, or the comm of two PCollections.
+		Splits
+			The Channels class provides a method that allows you to split an input PCollection of Pairs into a Pair of PCollections:
+
+MemPipeline
+	extremely fast and are a good way to test the internal logic of your DoFns and pipeline operations
+Testing Complex DoFns and Pipelines
+	 - best to use the MemPipeline implementation to create in-memory instances of PCollections and PTables that contain a small amount of test data and apply our DoFns to those PCollections to test their functionality
+	 - can easily retrieve the contents of any in-memory PCollection by calling its Iterable<T> materialize() method, which will return immediately
+
+Pipeline execution plan visualizations
+	Crunch provides tools to visualize the pipeline execution plan. The PipelineExecution String getPlanDotFile() method returns a DOT format visualization of the exaction plan
+
+
+
+https://hadoopsters.net/2015/09/18/hadoop-tutorial-apache-crunch-getting-started/
+
+
+No repl. big issue for trying do explore data quickly. 
+	- solutions. spark
+	- get used to it
+	- is 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
