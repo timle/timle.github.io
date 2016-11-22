@@ -102,7 +102,8 @@ The 'Predictions' output table at this step consisted of all of the source songs
 
 This output was the very first version of the song recommendation engine.  A very simple algorithm that finds songs with high degree of user overlap, and returns these songs as recommendations. However, refinements were badly needed. Using this method, without normalizing for number of likes, meant that popular songs inevitably rose to the top of recommendation lists.
 
-<img src="/images/songproffr-I-logo.png" width="300px">
+<img src="/images/songproffr-I-logo.png">
+{: style="color:gray; font-size: 80%; text-align: center; width="300px"}
 
 #### Next steps
 In the next post, I will outline the process of normalizing predictions based on total number of likes (popular songs connect to many many more users than average songs, complicating original assumptions) and using a Gradient Boosting Machine, trained on user behavior, to help improve the quality of predictions. 
