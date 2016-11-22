@@ -12,8 +12,9 @@ This will be a series of posts, describing in detail a song recommendation site,
 
 I tend to listen to a lot of music - a part of this is driven by a love for discovering new music. My favorite site for finding new music is Hype Machine (http://hypem.com). Hype Machine aggregates posts from a curated list of music blogs, extracts music linked within the posts, and creates play-lists. With an account, users can bookmark ('love') songs that they like. Because of this, Hype Machine has a really interesting dataset. A near constantly fresh list of new songs, and for each song, a list of users which 'loved' the song. 
 
-<img src="/images/songproffr-I-hypemachine-eg.png" width="500px">
+<img src="/images/songproffr-I-hypemachine-eg.png">
 *An example of a song feed, as it appears on Hypemachine. One of the songs in the list has been loved me.*
+{: style="color:gray; font-size: 80%; text-align: center; width="500px"}
 
 The goal of this project was to generate music recommendations based on user similarities between songs. The assumption is that when songs have a large number of 'loves' from the same users, that those songs would make good recommendation for each other. For example, if there was a big overlap in the number of users that loved both song A and song B, song A would be a good recommendation for song B, and vice versa. 
 
@@ -28,9 +29,8 @@ The bulk of the data is saved in the 'user x song interaction' table. This table
 One way to the user x song interaction table structure is as a bipartite
 [bipartite](https://en.wikipedia.org/wiki/Bipartite_graph) graph. Every song is connected by a user, and every user is connected by a song. An example of the data, represented in this way, is shown below.
 
-<img src="/images/songproffr-I-graph_demo.png">
-![alt text](/images/songproffr-I-graph_demo.png "Logo Title Text 1")
-
+<img src="/images/songproffr-I-graph_demo.png" >
+![alt text](/images/songproffr-I-graph_demo.png "does this work?")
 *An example of 687 songs with 27 users in common. Users in red, songs in blue.*
 {: style="color:gray; font-size: 80%; text-align: center; width="600px"}
 
@@ -38,11 +38,10 @@ One way to the user x song interaction table structure is as a bipartite
 
 By identifying songs with groups of users in common, recommendations can be generated. Here is a simple illustration of the process:
 
-<center>
-<img src="/images/songproffr-I-network-illustration.png" width="300px">
-</center>
-*Further illustration of the relationship between user and songs. Recommendations will be made by looking for songs with groups of users in common*
 
+<img src="/images/songproffr-I-network-illustration.png" width="300px">
+*Further illustration of the relationship between user and songs. Recommendations will be made by looking for songs with groups of users in common*
+{: style="color:gray; font-size: 80%; text-align: center; width="600px"}
 
 Because the data is structured as bipartite data, matrix operations can be used to quickly and efficiently do a lot of the calculation required to determine which songs have a lot of overlapping users (and so which songs make good recommendations for each other).
 
@@ -103,6 +102,7 @@ The 'Predictions' output table at this step consisted of all of the source songs
 
 This output was the very first version of the song recommendation engine.  A very simple algorithm that finds songs with high degree of user overlap, and returns these songs as recommendations. However, refinements were badly needed. Using this method, without normalizing for number of likes, meant that popular songs inevitably rose to the top of recommendation lists.
 
+<img src="/images/songproffr-I-logo.png" width="300px">
 
 #### Next steps
 In the next post, I will outline the process of normalizing predictions based on total number of likes (popular songs connect to many many more users than average songs, complicating original assumptions) and using a Gradient Boosting Machine, trained on user behavior, to help improve the quality of predictions. 
