@@ -28,14 +28,14 @@ The bulk of the data is saved in the 'user x song interaction' table. This table
 One way to the user x song interaction table structure is as a bipartite
 [bipartite](https://en.wikipedia.org/wiki/Bipartite_graph) graph. Every song is connected by a user, and every user is connected by a song. An example of the data, represented in this way, is shown below.
 
-<img src="songproffr-I-graph_demo.png" width="600px">
+<img src="/images/songproffr-I-graph_demo.png" width="600px">
 *An example of 687 songs with 27 users in common. Users in red, songs in blue.*
 
 #### Making first predictions
 
 By identifying songs with groups of users in common, recommendations can be generated. Here is a simple illustration of the process:
 
-<img src="songproffr-I-network-illustration.png" width="300px">
+<img src="/images/songproffr-I-network-illustration.png" width="300px">
 *Further illustration of the relationship between user and songs. Recommendations will be made by looking for songs with groups of users in common*
 
 Because the data is structured as bipartite data, matrix operations can be used to quickly and efficiently do a lot of the calculation required to determine which songs have a lot of overlapping users (and so which songs make good recommendations for each other).
