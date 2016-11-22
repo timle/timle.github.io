@@ -8,7 +8,7 @@ This will be a series of posts, describing in detail a song recommendation site,
 
 ### Part I: Analysis engine overview - Motivation + Graph based predictions
 
-#### Introduction
+### Introduction
 
 I tend to listen to a lot of music - a part of this is driven by a love for discovering new music. My favorite site for finding new music is Hype Machine (http://hypem.com). Hype Machine aggregates posts from a curated list of music blogs, extracts music linked within the posts, and creates play-lists. With an account, users can bookmark ('love') songs that they like. Because of this, Hype Machine has a really interesting dataset. A near constantly fresh list of new songs, and for each song, a list of users which 'loved' the song. 
 
@@ -20,7 +20,7 @@ The goal of this project was to generate music recommendations based on user sim
 
 This approach, of relying on user behavior, to identify similarities between products (songs in this case) is the core of collaborative filtering. Relying on similar behavior clustered around certain songs to generate recommendations, and not considering at any features intrinsic to the song itself (i.e. tempo, key, length).
 
-#### The data
+### The data
 
 The data was scraped from Hypemachine, using a web-crawling strategy that based on a cycling between discovering user-names not yet in the local database and retrieving lists of recently loved songs for recently added users. I'll write a more on the specifics of the scraper in a later post.
 
@@ -33,7 +33,7 @@ One way to the user x song interaction table structure is as a bipartite
 *An example of 687 songs with 27 users in common. Users in red, songs in blue.*
 {: style="color:gray; font-size: 80%; text-align: center; width="600px"}
 
-#### Making first predictions
+### Making first predictions
 
 By identifying songs with groups of users in common, recommendations can be generated. Here is a simple illustration of the process:
 
@@ -89,7 +89,7 @@ For example, retrieving the row for song id '10020' yields the number of users f
 
 For song id '10020', the song ids '10028' and '1002k' appear to have the higher number of overlapping users. These two songs might make good recommendations. 
 
-#### Implementation
+### Implementation
 The big drawback to the approach outlined above, is that when there are many songs and/or many users, the size of such a matrix can quickly exceed available memory. Fortunately, due to the nature of the data, it is efficiently represented as a sparse matrix. Sparse matrices excel at representing data which consists of a majority of 0 values. The simplest example is of a matrix containing 1's or 0's. Instead of storing the value held in each row/column location in the matrix, the sparse matrix representation stores just the row/column indexes where the value is 1. 
 When a matrix has more 0 values than 1 values, it is easy to see that a substantial amount of memory can be saved with this representation. 
 
@@ -108,5 +108,5 @@ This output was the very first version of the song recommendation engine.  A ver
 
 <br> 
 
-#### Next steps
+### Next steps
 In the next post, I will outline the process of normalizing predictions based on total number of likes (popular songs connect to many many more users than average songs, complicating original assumptions) and using a Gradient Boosting Machine, trained on user behavior, to help improve the quality of predictions. 
