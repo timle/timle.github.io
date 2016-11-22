@@ -28,9 +28,7 @@ The bulk of the data is saved in the 'user x song interaction' table. This table
 One way to the user x song interaction table structure is as a bipartite
 [bipartite](https://en.wikipedia.org/wiki/Bipartite_graph) graph. Every song is connected by a user, and every user is connected by a song. An example of the data, represented in this way, is shown below.
 
-
-
-![alt text](/images/songproffr-I-graph_demo.png "Logo Title Text 1")
+<img src="/images/songproffr-I-graph_demo.png" width="600px">
 *An example of 687 songs with 27 users in common. Users in red, songs in blue.*
 {: style="color:gray; font-size: 80%; text-align: center; width="600px"}
 
