@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## Songprof.fr song recommendations - Part I - Analysis engine overview - Motivation + Graph based predictions
+## Songprof.fr song recommendations
 
 This will be a series of posts, describing in detail a song recommendation site, which I built this summer.
 
@@ -30,7 +30,6 @@ One way to the user x song interaction table structure is as a bipartite
 [bipartite](https://en.wikipedia.org/wiki/Bipartite_graph) graph. Every song is connected by a user, and every user is connected by a song. An example of the data, represented in this way, is shown below.
 
 <img src="/images/songproffr-I-graph_demo.png" >
-![alt text](/images/songproffr-I-graph_demo.png "does this work?")
 *An example of 687 songs with 27 users in common. Users in red, songs in blue.*
 {: style="color:gray; font-size: 80%; text-align: center; width="600px"}
 
@@ -102,8 +101,12 @@ The 'Predictions' output table at this step consisted of all of the source songs
 
 This output was the very first version of the song recommendation engine.  A very simple algorithm that finds songs with high degree of user overlap, and returns these songs as recommendations. However, refinements were badly needed. Using this method, without normalizing for number of likes, meant that popular songs inevitably rose to the top of recommendation lists.
 
-<img src="/images/songproffr-I-logo.png">
+<br> 
+
+<img src="/images/songproffr-I-logo.png" width="300px">
 {: style="color:gray; font-size: 80%; text-align: center; width="300px"}
+
+<br> 
 
 #### Next steps
 In the next post, I will outline the process of normalizing predictions based on total number of likes (popular songs connect to many many more users than average songs, complicating original assumptions) and using a Gradient Boosting Machine, trained on user behavior, to help improve the quality of predictions. 
