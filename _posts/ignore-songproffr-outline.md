@@ -12,3 +12,8 @@ Series of posts, describing a song recommendation site which I built. The planne
 ## Part V: Improvements - DB performance
 
 Blog text
+
+
+## Part II: Analysis engine overview - GBM to improve song predictions
+
+Metrics included number of likes a song received in total (total number of likes in the db) and number of likes this song had in common with the source song (intersection of likes between the two songs).

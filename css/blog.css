@@ -252,3 +252,10 @@ img {
 		font-size: 14px;
 }
 
+/*
+ * Caption for image'
+ *  http://stackoverflow.com/a/30366422/7034800
+ */
+img + em { 
+
+}
