@@ -30,7 +30,6 @@ p {
 
 img {
   max-width:100%;
-  text-align: center;
 }
 
 /*
@@ -260,5 +259,9 @@ img {
 img + em { 
     font-size: 11pt;
     display: block;
+    text-align: center;
+}
+
+p + img {
     text-align: center;
 }
