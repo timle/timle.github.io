@@ -2,15 +2,14 @@
 layout: default
 ---
 
-## Songprof.fr - building a song recommendation engine
 
-### Part I: Analysis engine overview - Motivation + Graph based predictions
+## Part I: Analysis engine overview - Motivation + Graph based predictions
 
 ### Introduction
 
-This will be a series of posts, describing in detail a song recommendation site, which I built this summer.
+This will be a series of posts describing, in detail, [Song proffr](http://songprof.fr). Song proffr is a song recommendation site, which I built this summer as part of the Insight Data Science Fellowship program.
 
-I tend to listen to a lot of music - a part of this is driven by a love for discovering new music. My favorite site for finding new music is Hype Machine (http://hypem.com). Hype Machine aggregates posts from a curated list of music blogs, extracts music linked within the posts, and creates play-lists. With an account, users can bookmark ('love') songs that they like. Because of this, Hype Machine has a really interesting dataset. A near constantly fresh list of new songs, and for each song, a list of users which 'loved' the song. 
+I tend to listen to a lot of music - a part of this is driven by a love for discovering new music. My favorite site for finding new music is Hype Machine [Hype Machine](http://hypem.com). Hype Machine aggregates posts from a curated list of music blogs, extracts music linked within the posts, and creates play-lists. With an account, users can bookmark ('love') songs that they like. Because of this, Hype Machine has a really interesting dataset. A near constantly fresh list of new songs, and for each song, a list of users which 'loved' the song. 
 
 <img src="/images/songproffr-I-hypemachine-eg.png" width="300px">
 *An example of a song feed, as it appears on Hypemachine. One of the songs in the list has been loved me.*
