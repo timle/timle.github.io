@@ -262,6 +262,6 @@ img + em {
     text-align: center;
 }
 
-p + img {
+p img {
     text-align: center;
 }
