@@ -7,7 +7,7 @@ layout: default
 
 ### Introduction
 
-This will be a series of posts describing, in detail, [Song proffr](http://songprof.fr). Song proffr is a song recommendation site, which I built this summer as part of the Insight Data Science Fellowship program.
+This will be a series of posts describing, in detail, [song proffr](http://songprof.fr). Song proffr is a song recommendation site, which I built this summer as part of the Insight Data Science Fellowship program.
 
 I tend to listen to a lot of music - a part of this is driven by a love for discovering new music. My favorite site for finding new music is Hype Machine [Hype Machine](http://hypem.com). Hype Machine aggregates posts from a curated list of music blogs, extracts music linked within the posts, and creates play-lists. With an account, users can bookmark ('love') songs that they like. Because of this, Hype Machine has a really interesting dataset. A near constantly fresh list of new songs, and for each song, a list of users which 'loved' the song. 
 
