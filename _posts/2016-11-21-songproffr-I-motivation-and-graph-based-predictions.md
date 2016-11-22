@@ -12,7 +12,7 @@ This will be a series of posts, describing in detail a song recommendation site,
 
 I tend to listen to a lot of music - a part of this is driven by a love for discovering new music. My favorite site for finding new music is Hype Machine (http://hypem.com). Hype Machine aggregates posts from a curated list of music blogs, extracts music linked within the posts, and creates play-lists. With an account, users can bookmark ('love') songs that they like. Because of this, Hype Machine has a really interesting dataset. A near constantly fresh list of new songs, and for each song, a list of users which 'loved' the song. 
 
-<img src="songproffr-I-hypemachine-eg.png" width="500px">
+<img src="/images/songproffr-I-hypemachine-eg.png" width="500px">
 *An example of a song feed, as it appears on Hypemachine. One of the songs in the list has been loved me.*
 
 The goal of this project was to generate music recommendations based on user similarities between songs. The assumption is that when songs have a large number of 'loves' from the same users, that those songs would make good recommendation for each other. For example, if there was a big overlap in the number of users that loved both song A and song B, song A would be a good recommendation for song B, and vice versa. 
