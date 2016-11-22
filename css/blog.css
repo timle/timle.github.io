@@ -30,6 +30,7 @@ p {
 
 img {
   max-width:100%;
+  text-align: center;
 }
 
 /*
@@ -257,5 +258,7 @@ img {
  *  http://stackoverflow.com/a/30366422/7034800
  */
 img + em { 
-
+    font-size: 11pt;
+    display: block;
+    text-align: center;
 }
