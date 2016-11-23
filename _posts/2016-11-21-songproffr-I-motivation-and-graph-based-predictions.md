@@ -86,7 +86,7 @@ For example, retrieving the row for song id '10020' yields the number of users f
     2     2     2     0     1 
 ```
 
-For song id '10020', the song ids '10028' and '1002k' appear to have the higher number of overlapping users. These two songs might make good recommendations. 
+From the above example, for song id '10020', song ids '10028' and '1002k' appear to have the higher number of overlapping users. These two songs might make good recommendations. 
 
 ### Implementation
 The big drawback to the approach outlined above, is that when there are many songs and/or many users, the size of such a matrix can quickly exceed available memory. Fortunately, due to the nature of the data, it is efficiently represented as a sparse matrix. Sparse matrices excel at representing data which consists of a majority of 0 values. The simplest example is of a matrix containing 1's or 0's. Instead of storing the value held in each row/column location in the matrix, the sparse matrix representation stores just the row/column indexes where the value is 1. 
@@ -95,10 +95,27 @@ When a matrix has more 0 values than 1 values, it is easy to see that a substant
 Here, the 'user x song interaction' table (one column for user id, and one column for song id) is pulled from the SQL database, translated into a sparse matrix representation, and the cross product transpose calculated. This was implemented in R, using the Matrix library for sparse matrix support (the library also supports matrix multiplication of sparse matrices). 
 This design allowed for an efficient and vectorized implementation of finding songs with large user similarities between songs. 
 
-The final step involved iterating through all the songs in the database, querying the song similarity matrix, and retrieving the top n songs with user overlap.
-The 'Predictions' output table at this step consisted of all of the source songs, a list of similar songs for each source song, and metrics associated with the recommended songs. (More on what the metrics were, and how they were used in the next post. )
+The final step involves iterating through all the songs in the database, querying the song similarity matrix, and retrieving the top n songs with user overlap. The result of each query is saved to a 'Predictions' table. This predications table is a precomputed list of recomended songs for every song in the data. This database is quick and easy to serve from a web front end, compared to computing the recommendations on every query. The downside to this approach, is that the predictions database must be re-generated whenever the user x song interaction table is updated. This is a trade off, in the end, favoring speed for the end user, at a cost of not always serving the freshest data available. 
 
-This output was the very first version of the song recommendation engine.  A very simple algorithm that finds songs with high degree of user overlap, and returns these songs as recommendations. However, refinements were badly needed. Using this method, without normalizing for number of likes, meant that popular songs inevitably rose to the top of recommendation lists.
+```
+An example of the predictions table.
+  mediaid: id of recommended song
+  source: source song for which recommendation is for
+  date: data which the recommendation was generated
+
+   mediaid source date
+1    10xem  10028 1479848969
+2    2f8ta  10028 1479848969
+3    1xrbe  10028 1479848969
+4    26kk3  10028 1479848969
+5    2g1gf  10028 1479848969
+6    2evkp  10028 1479848969
+
+```
+
+The 'Predictions' output table consists of all of the source songs, a list of similar songs for each source song, and metrics associated with the number of similar likes for recommended songs. More on these metrics, and how they were used, in the next post.
+
+This simple Predications table was the data behind the very first version of the recommendation engine.  Generated with a very simple algorithm that finds songs with high degree of user overlap, and returns these songs as recommendations. However, as a first version, refinements were badly needed. Though the recommendations were often close, there were big issues with very popular songs being over represented, and recommendations being made across non-similar genres (again, most often occurring due to very popular songs). 
 
 <br> 
 
