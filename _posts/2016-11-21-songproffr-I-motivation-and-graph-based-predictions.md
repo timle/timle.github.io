@@ -41,7 +41,10 @@ By identifying songs with groups of users in common, recommendations can be gene
 *Further illustration of the relationship between user and songs. Recommendations will be made by looking for songs with groups of users in common*
 {: style="color:gray; font-size: 80%; text-align: center; width="600px"}
 
-Because the data is structured as bipartite data, matrix operations can be used to quickly and efficiently do a lot of the calculation required to determine which songs have a lot of overlapping users (and so which songs make good recommendations for each other).
+Because the data is structured as bipartite data, matrix operations can be used to quickly and efficiently do much of the calculation required to determine which songs have a lot of overlapping users (and so which songs make good recommendations for each other).
+
+Because of the efficiency of calculations involving vectorization, and matrix algebra (this analysis was done in r) I decided to first try an analysis that takes advantage of the properties of the data. An alternative would have been to calculate cosine similarity between vectors representing songs. In this case, a vector would be a list of songs, and the number for each representing how many users were in common between the two songs. Having to calculate this for every song in the database is very computationally intensive. As an alternative, part of this project was exploring alternative means (with a focus on efficiency) to finding user similarities between songs. For a future endeavor I plan on calculating traditional collaborative filtering techniques, using the excellent MLlib toolbox for Apache Spark, and comparing with the method used here.
+
 
 A convenient method of representing bipartite data is to use a matrix, with 1's to represent links, and 0's otherwise. For example, this data is represented with song ids as rows, and user names as columns, and where a user liked a song, the value is 1. 
 
@@ -95,7 +98,7 @@ When a matrix has more 0 values than 1 values, it is easy to see that a substant
 Here, the 'user x song interaction' table (one column for user id, and one column for song id) is pulled from the SQL database, translated into a sparse matrix representation, and the cross product transpose calculated. This was implemented in R, using the Matrix library for sparse matrix support (the library also supports matrix multiplication of sparse matrices). 
 This design allowed for an efficient and vectorized implementation of finding songs with large user similarities between songs. 
 
-The final step involves iterating through all the songs in the database, querying the song similarity matrix, and retrieving the top n songs with user overlap. The result of each query is saved to a 'Predictions' table. This predications table is a precomputed list of recomended songs for every song in the data. This database is quick and easy to serve from a web front end, compared to computing the recommendations on every query. The downside to this approach, is that the predictions database must be re-generated whenever the user x song interaction table is updated. This is a trade off, in the end, favoring speed for the end user, at a cost of not always serving the freshest data available. 
+The final step involves iterating through all the songs in the database, querying the song similarity matrix, and retrieving the top n songs with user overlap. The result of each query is saved to a 'Predictions' table. This predications table is a precomputed list of recommended songs for every song in the data. This database is quick and easy to serve from a web front end, compared to computing the recommendations on every query. The downside to this approach, is that the predictions database must be re-generated whenever the user x song interaction table is updated. This is a trade off, in the end, favoring speed for the end user, at a cost of not always serving the freshest data available. 
 
 ```
 An example of the predictions table.
@@ -115,14 +118,26 @@ An example of the predictions table.
 
 The 'Predictions' output table consists of all of the source songs, a list of similar songs for each source song, and metrics associated with the number of similar likes for recommended songs. More on these metrics, and how they were used, in the next post.
 
-This simple Predications table was the data behind the very first version of the recommendation engine.  Generated with a very simple algorithm that finds songs with high degree of user overlap, and returns these songs as recommendations. However, as a first version, refinements were badly needed. Though the recommendations were often close, there were big issues with very popular songs being over represented, and recommendations being made across non-similar genres (again, most often occurring due to very popular songs). 
 
-<br> 
+### Normalizing scores
 
-<img src="/images/songproffr-I-logo.png" width="300px">
+This simple Predications table was the data behind the very first version of the recommendation engine.  Generated with a very simple algorithm that finds songs with high degree of user overlap, and returns these songs as recommendations. 
+
+However, as a first version of song predictions, refinements were needed. Though the recommendations were often close, there were big issues with very popular songs being over represented, and recommendations being made across non-similar genres (again, most often occurring due to very popular songs). Normalization, for number of likes, was required to help balance how the user overlap of songs was calculated, as very poplar songs would certainly have more user overlap then non popular songs.
+
+The solution was to normalize the number of users that liked two songs, by the total number of likes for those two songs in the database. For example, a score of 1 (for a pair of songs) represents 100% of users who liked both songs always liked those songs together. A low score, close to 0, represents low degree of agreement between users who liked both songs. In other words, songs that have many likes in common, but also have many likes with many songs, will be penalized. Songs with  likes are consistently distributed between songs will have the best scores. 
+
+
+<img src="/images/songproffr-I-normalization.png" width="600px">
 {: style="color:gray; font-size: 80%; text-align: center; width="300px"}
+*Normalization strategy. Dividing the number of likes that two songs share, by the total number of likes for both songs.*
+{: style="color:gray; font-size: 80%; text-align: center; width="600px"}
+
 
 <br> 
 
-### Next steps
-In the next post, I will outline the process of normalizing predictions based on total number of likes (popular songs connect to many many more users than average songs, complicating original assumptions) and using a Gradient Boosting Machine, trained on user behavior, to help improve the quality of predictions. 
+### Next Steps
+
+The above process is the basic design the song proffer engine uses to find similar songs. In the next posts, I will describe how I used a Gradient Boosted Machine to improve the predictions. As well as the process of writing the front end code to serve the predictions as a website, and the steps I took to optimize the back-end SQL database serving the data to the front end. 
+
+
